@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'styles/login-register.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/header.css' %}">
+</head>
+<body>
+    <section class="header">
+            <div class="logo">
+                <a href="">Trifecta</a>
+            </div>
+
+            <div class="nav-btn">
+                <a href="{% url 'home-page' %}"><button>To-do list</button></a>
+                <a href=""><button> Expense Manager</button></a>
+                <a href=""><button>Job tracker</button></a>
+            </div>
+            
+    </section>
+    
+    <section class="login-box">
+            
+        <form action="" method="POST">
+            {% csrf_token %}
+            <h1>Register</h1><br>
+            {% if messages %}
+                {% for message in messages %}
+                <h2 style="color: red;">{{message}}</h2>
+                {% endfor %}
+            {% endif %}
+            <label>Username:</label>
+            <input type="text" required name="username">
+            <label>Email:</label>
+            <input type="email" required name="email">
+            <label>Password:</label>
+            <input type="password" required name="password">
+            <input class="button" type="submit" value="Login">
+            <h2 class="login">Already have an account? <a href="{% url 'login-page' %}">Login</a></h2>
+        </form>
+
+    </section>
+    
+</body>
+</html>

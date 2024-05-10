@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trifecta</title>
+    <link rel="stylesheet" href="{% static 'styles/header.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <section class="header">
+        <div class="logo">
+            <a href="">Trifecta</a>
+        </div>
+
+        <div class="nav-btn">
+            <a href="{% url 'home-page' %}"><button>To-do list</button></a>
+            <a href="{% url 'expensemanager:expense-home' %}"><button> Expense Manager</button></a>
+            <a href="{% url 'jobtracker:job-home' %}"><button>Job tracker</button></a>
+        </div>
+
+        <div class="logout">
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+        
+    </section>
+
+    <section class="task-container">
+        <div class="username">
+            <h1>Hello <span>{{user}},</span></h1>
+            <h2>You have {{ in_progress_count }} incomplete task{{ in_progress_count|pluralize }}</h2>
+            <!-- <h2>You have 1 incomplete task</h2> -->
+
+        </div>
+    </section>
+
+    <section class="search-box">
+        <div class="search">
+            <form method="GET" action="{% url 'home-page' %}">
+                <input type="text" name="search" placeholder="Search the task...">
+                <button type="submit">Search</button>
+            </form>
+            <!-- <input type="text" placeholder="Search the task...">
+            <button>Search</button> -->
+        </div>
+    </section>
+
+    <section class="list-area">
+
+        <div class="task-list">
+            <table class="title">
+                <tr>
+                    <th>Tasks</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                {% for todo in todos|slice:":8" %}
+                <tr>
+                    <td>{{todo.todo_name}}</td>
+
+                    {% if todo.priority == 'High Priority' %}
+                    <td style="color: red;">{{todo.priority}}</td>
+                    {% elif todo.priority == 'Medium Priority' %}
+                    <td style="color: yellow;">{{todo.priority}}</td>
+                    {% elif todo.priority == 'Low Priority' %}
+                    <td style="color: green;">{{todo.priority}}</td>
+                    {% endif %}
+
+                    {% if todo.status == True %}
+                        <td style="color: green;">Completed</td>
+                    {% else %}
+                        <td>In progress</td>
+                    {% endif %}
+
+                    <td>
+                        <a href="{% url 'update-status' todo.todo_name %}"><button type="submit"><i class='bx bx-check'></i></button></a>
+                        <a href="{% url 'delete-task' todo.todo_name %}"><button type="submit"><i class='bx bxs-trash'></i></button></a>
+                    </td>
+                </tr>
+                {% endfor %}
+                
+            </table>
+        </div>
+
+        <div class="add-task">
+            <form method="POST" class="add" action="">
+                {% csrf_token %}
+                <label class="task-name">Task name</label>
+                <input type="text" name="task_name">
+                <label for="priority" class="task-name">Priority</label>
+                <select id="priority" name="priority">
+                    <option value="Priority">Select</option>
+                    <option style="color: red;" value="High Priority">High Priority</option>
+                    <option style="color: yellow;" value="Medium Priority">Medium Priority</option>
+                    <option style="color: green;" value="Low Priority">Low Priority</option>
+                </select>
+                <button type="submit" >Add Task</button>
+            </form>
+
+        </div>
+
+    </section>
+</body>
+</html>
