@@ -24,11 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@9^fe-&zwb&!aokb0e*bnt1nxzar*j3v-5gps6l#i0x=u9i@8l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-ALLOWED_HOSTS = ['https://trifecta-dw45.onrender.com']
+ALLOWED_HOSTS = ['trifecta-dw45.onrender.com']
 
 
 # Application definition
