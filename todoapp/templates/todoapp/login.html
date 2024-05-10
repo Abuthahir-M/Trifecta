@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'todoapp/css/login-register.css' %}">
+    <link rel="stylesheet" href="{% static 'todoapp/css/header.css' %}">
+</head>
+<body>
+    <section class="header">
+            <div class="logo">
+                <a href="">Trifecta</a>
+            </div>
+
+            <div class="nav-btn">
+                <a href="{% url 'home-page' %}"><button>To-do list</button></a>
+                <a href=""><button> Expense Manager</button></a>
+                <a href=""><button>Job tracker</button></a>
+            </div>
+
+    </section>
+    
+    <section class="login-box">
+            
+        <form action="" method="POST">
+            {% csrf_token %}
+            <h1>Login</h1>
+            {% if messages %}
+                {% for message in messages %}
+                <h2 style="color: red;">{{message}}</h2>
+                {% endfor %}
+            {% endif %}
+            <label>Username:</label>
+            <input type="text" required name="user_name">
+            <label>Password:</label>
+            <input type="password" required name="pass_word">
+            <input class="button" type="submit" value="Login">
+            <!-- <h3><a href="">Forget password !</a></h3> -->
+            <h2>Don't have an account? <a href="{% url 'register' %}">Register Now</a></h2>
+            
+        </form>
+
+    </section>
+</body>
+</html>
